@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Usuario;
 
 #[Route('/', name: 'web_usuario_')]
 class UsuarioController extends AbstractController
@@ -16,8 +17,24 @@ class UsuarioController extends AbstractController
     }
 
     #[Route('/salvar', methods: ['POST'])]
-    public function salvar(): Response
+    public function salvar(Request $request): Response
     {
-        return new Response("Implementar bancio");
+        $data = $request->request->all();
+
+        $usuario = new Usuario;
+        $usuario->setNome($data['nome']);
+        $usuario->setEmail($data['email']);
+
+        dump($usuario);
+
+        $doctrine = $this->getDoctrine()->getManager();
+        $doctrine->persist($usuario);
+        $doctrine->flush();
+
+        if($usuario->getId()){
+            return $this->render('usuario/sucesso.html.twig');
+        }else {
+            return $this->render('usuario/erro.html.twig');
+        }
     }
 }
