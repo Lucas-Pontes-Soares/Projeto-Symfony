@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Cadastro Usuario{% endblock %}
+
+{% block body %}
+    <form method="POST" action="/salvar" >
+        <input type="text" name="nome" placeholder="Digite seu nome">
+        <input type="email" name="email" placeholder="Digite seu email">
+        <button type="submit">Enviar</button>
+    </form>
+{% endblock %}
