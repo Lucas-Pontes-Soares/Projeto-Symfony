@@ -6,3 +6,5 @@ composer create-project symfony/skeleton cadastro-symfony
 
 Abrir servidor:
 php -S localhost:8000 -t public/
+
+composer require annotations
